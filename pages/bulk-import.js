@@ -1,8 +1,7 @@
-import { Page, Layout, Card, FormLayout, TextField } from "@shopify/polaris";
-import Link from "next/link";
+import { Card, Layout, Page, FormLayout } from "@shopify/polaris";
 
-const Index = () => (
-  <Page title="Dashboard">
+const BulkImport = () => (
+  <Page title="Bulk Import">
     <Layout>
       <Layout.AnnotatedSection
         title="Bulk import"
@@ -15,5 +14,4 @@ const Index = () => (
     </Layout>
   </Page>
 );
-
-export default Index;
+export default BulkImport;
