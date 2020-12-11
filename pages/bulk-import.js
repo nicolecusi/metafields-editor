@@ -18,8 +18,8 @@ import React, { useCallback, useState } from "react";
 
 function BulkImportForm() {
   // Form field values
-  const [objectType, setType] = useState("product");
-  const [objectIdentifier, setIdentifier] = useState("handle");
+  const [objectType, setType] = useState("");
+  const [objectIdentifier, setIdentifier] = useState("");
   const [email, setEmail] = useState("");
 
   // Form field change actions
@@ -98,7 +98,7 @@ function BulkImportForm() {
         <InlineError message={errorMessage} fieldID="object-type" />
         <ImportDropzone />
         <TextField
-          label="Notification email address"
+          label="Email address"
           onChange={handleEmailChange}
           value={email}
           type="email"
@@ -184,6 +184,10 @@ function ImportDropzone() {
       </DropZone>
     </Stack>
   );
+}
+
+function updateMetafields() {
+  Papa.parse(file, config);
 }
 
 const BulkImport = () => (

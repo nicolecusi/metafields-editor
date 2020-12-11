@@ -14,9 +14,17 @@ import {
 function BulkExportForm() {
   const [email, setEmail] = useState("");
   const [checked, setChecked] = useState("");
+  const [objectType, setObjectType] = useState("");
 
   const handleEmailChange = useCallback((value) => setEmail(value), []);
-  const handleAllDataCheck = useCallback((value) => setChecked(value), []);
+  const handleAllDataCheckChange = useCallback(
+    (value) => setChecked(value),
+    []
+  );
+  const handleObjectTypeChange = useCallback(
+    (value) => setObjectType(value),
+    []
+  );
 
   const objectTypes = [
     { label: "Product", value: "product" },
@@ -39,9 +47,11 @@ function BulkExportForm() {
           label="Object identifier"
           placeholder="Select"
           options={objectTypes}
+          onChange={handleObjectTypeChange}
+          value={objectType}
         />
         <TextField
-          label="Notification email address"
+          label="Email address"
           onChange={handleEmailChange}
           value={email}
           type="email"
@@ -54,10 +64,10 @@ function BulkExportForm() {
         <Checkbox
           label="Include all data even if data is empty"
           checked={checked}
-          onChange={handleAllDataCheck}
+          onChange={handleAllDataCheckChange}
         />
         <Button submit primary>
-          Import
+          Export
         </Button>
       </FormLayout>
     </Form>
