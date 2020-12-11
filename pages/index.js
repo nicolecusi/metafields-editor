@@ -4,14 +4,14 @@ import Link from "next/link";
 const Index = () => (
   <Page title="Dashboard">
     <Layout>
-      <Layout.AnnotatedSection
+      <Layout.Section
         title="Bulk import"
         description="Jaded Pixel will use this as your account information."
       >
         <Card sectioned>
           <FormLayout></FormLayout>
         </Card>
-      </Layout.AnnotatedSection>
+      </Layout.Section>
     </Layout>
   </Page>
 );

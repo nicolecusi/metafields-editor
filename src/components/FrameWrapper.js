@@ -15,14 +15,12 @@ import {
   SkeletonDisplayText,
   TextContainer,
   Modal,
-  AppProvider,
   Loading,
 } from "@shopify/polaris";
 
 import {
   ArrowLeftMinor,
   HomeMajor,
-  ConversationMinor,
   TransferInMajor,
   TransferOutMajor,
 } from "@shopify/polaris-icons";
@@ -37,8 +35,6 @@ export default function FrameWrapper({ children }) {
   const [toastActive, setToastActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
-  const [searchActive, setSearchActive] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
   const [userMenuActive, setUserMenuActive] = useState(false);
   const [mobileNavigationActive, setMobileNavigationActive] = useState(false);
   const [modalActive, setModalActive] = useState(false);
@@ -82,14 +78,6 @@ export default function FrameWrapper({ children }) {
   const handleEmailFieldChange = useCallback((value) => {
     setEmailFieldValue(value);
     value && setIsDirty(true);
-  }, []);
-  const handleSearchResultsDismiss = useCallback(() => {
-    setSearchActive(false);
-    setSearchValue("");
-  }, []);
-  const handleSearchFieldChange = useCallback((value) => {
-    setSearchValue(value);
-    setSearchActive(value.length > 0);
   }, []);
   const toggleToastActive = useCallback(
     () => setToastActive((toastActive) => !toastActive),
@@ -148,33 +136,10 @@ export default function FrameWrapper({ children }) {
     />
   );
 
-  const searchResultsMarkup = (
-    <Card>
-      <ActionList
-        items={[
-          { content: "Shopify help center" },
-          { content: "Community forums" },
-        ]}
-      />
-    </Card>
-  );
-
-  const searchFieldMarkup = (
-    <TopBar.SearchField
-      onChange={handleSearchFieldChange}
-      value={searchValue}
-      placeholder="Search"
-    />
-  );
-
   const topBarMarkup = (
     <TopBar
       showNavigationToggle
       userMenu={userMenuMarkup}
-      searchResultsVisible={searchActive}
-      searchField={searchFieldMarkup}
-      searchResults={searchResultsMarkup}
-      onSearchResultsDismiss={handleSearchResultsDismiss}
       onNavigationToggle={toggleMobileNavigationActive}
     />
   );
@@ -212,11 +177,6 @@ export default function FrameWrapper({ children }) {
             url: "/bulk-export",
           },
         ]}
-        action={{
-          icon: ConversationMinor,
-          accessibilityLabel: "Contact support",
-          onClick: toggleModalActive,
-        }}
       />
     </Navigation>
   );
@@ -272,34 +232,6 @@ export default function FrameWrapper({ children }) {
 
   const pageMarkup = isLoading ? loadingPageMarkup : actualPageMarkup;
 
-  const modalMarkup = (
-    <Modal
-      open={modalActive}
-      onClose={toggleModalActive}
-      title="Contact support"
-      primaryAction={{
-        content: "Send",
-        onAction: toggleModalActive,
-      }}
-    >
-      <Modal.Section>
-        <FormLayout>
-          <TextField
-            label="Subject"
-            value={supportSubject}
-            onChange={handleSubjectChange}
-          />
-          <TextField
-            label="Message"
-            value={supportMessage}
-            onChange={handleMessageChange}
-            multiline
-          />
-        </FormLayout>
-      </Modal.Section>
-    </Modal>
-  );
-
   return (
     <Frame
       topBar={topBarMarkup}
@@ -312,7 +244,6 @@ export default function FrameWrapper({ children }) {
       {loadingMarkup}
 
       {toastMarkup}
-      {modalMarkup}
       {children}
     </Frame>
   );
