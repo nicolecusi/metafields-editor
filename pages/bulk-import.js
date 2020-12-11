@@ -187,7 +187,7 @@ function ImportDropzone() {
 }
 
 const BulkImport = () => (
-  <Page title="Bulk Import">
+  <Page title="Bulk import">
     <Layout>
       <Layout.Section>
         <BulkImportForm />
